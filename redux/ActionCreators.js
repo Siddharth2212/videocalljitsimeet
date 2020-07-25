@@ -68,6 +68,39 @@ export const addProfile = (phone, name) => (dispatch) => {
     .catch(error => dispatch(profileFailed(error)));
 };
 
+export const notificationFailed = (errmess) => ({
+    type: ActionTypes.NOTIFICATIONS_FAILED,
+    payload: errmess
+});
+
+export const notificationLoading = () => ({
+    type: ActionTypes.NOTIFICATION_LOADING
+});
+
+export const add_notification = () => ({
+    type: ActionTypes.ADD_NOTIFICATIONS
+});
+
+export const sendSilentNotification = (name, phone) => (dispatch) => {
+    console.log("hello");
+    dispatch(notificationLoading());
+
+    return fetch(baseUrl + 'sendsilentnotification?phone='+phone+'&name='+name)
+    .then(response => {
+        return response;
+    })
+    .then(response => response.json())
+    .then(notification => {
+        if(notification==-1){
+            dispatch(notificationFailed("error"))
+        }
+        else{
+            dispatch(add_notification())
+        }
+    })
+    .catch(error => dispatch(notificationFailed(error)));
+};
+
 export const add_Profile = (leaders) => ({
     type: ActionTypes.ADD_PROFILE,
     payload: leaders

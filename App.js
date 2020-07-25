@@ -16,7 +16,7 @@ export default function App() {
   function onAuthStateChanged(user) {
     setUser(user);
     console.log("HEREEEEE");
-    // console.log(user.phoneNumber);
+    console.log(user);
     if (initializing) setInitializing(false);
   }
 
